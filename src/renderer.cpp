@@ -38,7 +38,7 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-void Renderer::Render(Snake snake, SDL_Point const &food) {
+void Renderer::Render(Snake snake, Map map, SDL_Point const &food) {
   SDL_Rect block;
   block.w = screen_width / grid_width;
   block.h = screen_height / grid_height;
@@ -52,6 +52,9 @@ void Renderer::Render(Snake snake, SDL_Point const &food) {
   block.x = food.x * block.w;
   block.y = food.y * block.h;
   SDL_RenderFillRect(sdl_renderer, &block);
+
+  // Render map
+  map.render(sdl_renderer, block);
 
   // Render snake's body
   snake.render(sdl_renderer, block);
