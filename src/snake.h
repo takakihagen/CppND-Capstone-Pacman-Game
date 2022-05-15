@@ -2,9 +2,9 @@
 #define SNAKE_H
 
 #include <vector>
-#include "SDL.h"
+#include "gameObject.h"
 
-class Snake {
+class Snake : public GameObject {
  public:
   enum class Direction { kUp, kDown, kLeft, kRight };
 
@@ -18,6 +18,8 @@ class Snake {
 
   void GrowBody();
   bool SnakeCell(int x, int y);
+
+  void render(SDL_Renderer *sdl_renderer, SDL_Rect block) override;
 
   Direction direction = Direction::kUp;
 
