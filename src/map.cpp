@@ -1,5 +1,9 @@
 #include "map.h"
 
+Map::Map() {
+  fullMap = generateFullMap();
+}
+
 vector<vector<int>> Map::generateFullMap() {
   vector<vector<int>> fullWalls =  walls;
   // generate upper right part
@@ -18,14 +22,13 @@ vector<vector<int>> Map::generateFullMap() {
 
 void Map::render(SDL_Renderer *sdl_renderer, SDL_Rect block)
 {
-  auto fullWalls = generateFullMap();
   SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x00, 0xFF, 0xFF);
   //upper left and middle
-  for (int y = 0; y < fullWalls.size(); y++) {
-    for (int x = 0; x < fullWalls.size(); x++) {
+  for (int y = 0; y < fullMap.size(); y++) {
+    for (int x = 0; x < fullMap.size(); x++) {
         block.x = x * block.w;
         block.y = y * block.h;
-        if (fullWalls[y][x] == 1)
+        if (fullMap[y][x] == 1)
           SDL_RenderFillRect(sdl_renderer, &block);
     }
   }

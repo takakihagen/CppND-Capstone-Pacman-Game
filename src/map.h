@@ -6,8 +6,11 @@
 
 class Map : public GameObject {
 public:
+  Map();
   vector<vector<int>> generateFullMap();
   void render(SDL_Renderer *sdl_renderer, SDL_Rect block) override;
+
+  std::vector<std::vector<int>> fullMap;
 
   // The field is 21 * 21 and its symmetric
   // Here 11 * 11 map is defined which includes the middle of lines of the map
