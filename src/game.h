@@ -2,10 +2,11 @@
 #define GAME_H
 
 #include <random>
+#include <memory>
 #include "SDL.h"
 #include "controller.h"
 #include "renderer.h"
-#include "snake.h"
+#include "pacman.h"
 #include "map.h"
 
 class Game {
@@ -17,8 +18,8 @@ class Game {
   int GetSize() const;
 
  private:
-  Snake snake;
-  Map map;
+  Pacman pacman;
+  std::shared_ptr<Map> map;
   SDL_Point food;
 
   std::random_device dev;

@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "SDL.h"
-#include "snake.h"
+#include "pacman.h"
 #include "map.h"
 
 class Renderer {
@@ -12,7 +12,7 @@ class Renderer {
            const std::size_t grid_width, const std::size_t grid_height);
   ~Renderer();
 
-  void Render(Snake snake, Map map, SDL_Point const &food);
+  void Render(Pacman pacman, std::shared_ptr<Map> map);
   void UpdateWindowTitle(int score, int fps);
 
  private:

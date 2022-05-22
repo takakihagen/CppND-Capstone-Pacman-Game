@@ -7,7 +7,7 @@
 class Map : public GameObject {
 public:
   Map();
-  vector<vector<int>> generateFullMap();
+  void generateFullMap();
   void render(SDL_Renderer *sdl_renderer, SDL_Rect block) override;
 
   std::vector<std::vector<int>> fullMap;

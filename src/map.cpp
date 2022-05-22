@@ -1,10 +1,10 @@
 #include "map.h"
 
 Map::Map() {
-  fullMap = generateFullMap();
+  generateFullMap();
 }
 
-vector<vector<int>> Map::generateFullMap() {
+void Map::generateFullMap() {
   vector<vector<int>> fullWalls =  walls;
   // generate upper right part
   for (int y = walls.size()-1; y >= 0; y--) {
@@ -16,8 +16,7 @@ vector<vector<int>> Map::generateFullMap() {
   for (int y = walls.size()-2; y >= 0; y--) {
     fullWalls.push_back(fullWalls[y]);
   }
-
-  return fullWalls;
+  fullMap = fullWalls;
 }
 
 void Map::render(SDL_Renderer *sdl_renderer, SDL_Rect block)
