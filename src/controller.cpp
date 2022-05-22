@@ -1,7 +1,6 @@
 #include "controller.h"
 #include <iostream>
 #include "SDL.h"
-#include "snake.h"
 
 void Controller::ChangeDirection(Pacman &pacman, Direction input,
                                  Direction opposite) const {
