@@ -6,8 +6,8 @@
 #include "SDL.h"
 #include "controller.h"
 #include "renderer.h"
-#include "pacman.h"
-#include "map.h"
+#include "gameobject/pacman.h"
+#include "gameobject/map.h"
 
 class Game {
  public:

@@ -3,8 +3,8 @@
 
 #include <vector>
 #include "SDL.h"
-#include "pacman.h"
-#include "map.h"
+#include "gameobject/pacman.h"
+#include "gameobject/map.h"
 
 class Renderer {
  public:

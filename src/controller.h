@@ -1,7 +1,7 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include "pacman.h"
+#include "gameobject/pacman.h"
 
 class Controller {
  public:
