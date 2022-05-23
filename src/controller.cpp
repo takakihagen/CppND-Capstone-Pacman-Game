@@ -2,10 +2,9 @@
 #include <iostream>
 #include "SDL.h"
 
-void Controller::ChangeDirection(Pacman &pacman, Direction input,
-                                 Direction opposite) const {
-  if (pacman.direction != opposite) pacman.direction = input;
-  return;
+void Controller::ChangeDirection(Pacman &pacman, Direction input) const {
+  if (!pacman.checkWalls(input))
+    pacman.direction = input;
 }
 
 void Controller::HandleInput(bool &running, Pacman &pacman) const {
@@ -16,23 +15,19 @@ void Controller::HandleInput(bool &running, Pacman &pacman) const {
     } else if (e.type == SDL_KEYDOWN) {
       switch (e.key.keysym.sym) {
         case SDLK_UP:
-          ChangeDirection(pacman, Direction::kUp,
-                          Direction::kDown);
+          ChangeDirection(pacman, Direction::kUp);
           break;
 
         case SDLK_DOWN:
-          ChangeDirection(pacman, Direction::kDown,
-                          Direction::kUp);
+          ChangeDirection(pacman, Direction::kDown);
           break;
 
         case SDLK_LEFT:
-          ChangeDirection(pacman, Direction::kLeft,
-                           Direction::kRight);
+          ChangeDirection(pacman, Direction::kLeft);
           break;
 
         case SDLK_RIGHT:
-          ChangeDirection(pacman,  Direction::kRight,
-                          Direction::kLeft);
+          ChangeDirection(pacman,  Direction::kRight);
           break;
       }
     }

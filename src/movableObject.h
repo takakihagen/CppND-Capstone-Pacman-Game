@@ -20,7 +20,7 @@ class MovableObject : public GameObject {
     // place the object at the begining
     void place();
     // check if next grid is the wall or not
-    bool checkWalls(float x, float y);
+    bool checkWalls(const Direction checkDirection);
     virtual void Update() = 0;
 
     float x_pos;

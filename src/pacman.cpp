@@ -7,6 +7,7 @@ Pacman::Pacman(
     std::shared_ptr<Map> map,
     std::size_t grid_width, std::size_t grid_height, std::mt19937 engine
 ) :   MovableObject(std::move(map), grid_width, grid_height, engine) {
+  direction = Direction::kStop;
 }
 
 void Pacman::render(SDL_Renderer *sdl_renderer, SDL_Rect block) {
@@ -22,6 +23,8 @@ void Pacman::render(SDL_Renderer *sdl_renderer, SDL_Rect block) {
 }
 
 void Pacman::Update() {
+    if (checkWalls(direction))
+      return;
     switch (direction) {
     case Direction::kUp:
       y_pos -= speed;
@@ -37,6 +40,9 @@ void Pacman::Update() {
 
     case Direction::kRight:
       x_pos += speed;
+      break;
+    case Direction::kStop:
+    default:
       break;
   }
 

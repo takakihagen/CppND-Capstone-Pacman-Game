@@ -26,8 +26,19 @@ void MovableObject::place() {
     }
 }
 
-bool MovableObject::checkWalls(float x, float y) {
-    int grid_x = static_cast<int>(x);
-    int grid_y = static_cast<int>(y);
+bool MovableObject::checkWalls(const Direction checkDirection) {
+    float x = 0;
+    float y = 0;
+    if (checkDirection == Direction::kRight)
+        x += 1;
+    else if (checkDirection == Direction::kLeft)
+        x -= 1;
+    else if (checkDirection == Direction::kDown)
+        y += 1;
+    else if (checkDirection == Direction::kUp)
+        y -= 1;
+
+    int grid_x = static_cast<int>(x_pos + x);
+    int grid_y = static_cast<int>(y_pos + y);
     return map->fullMap[grid_y][grid_x] == 1;
 }
