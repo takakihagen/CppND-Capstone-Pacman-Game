@@ -28,6 +28,7 @@ Renderer::Renderer(const std::size_t screen_width,
 
   // Create renderer
   sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED);
+
   if (nullptr == sdl_renderer) {
     std::cerr << "Renderer could not be created.\n";
     std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
@@ -51,7 +52,7 @@ void Renderer::Render(Pacman pacman, std::vector<Enemy> &enemyList, std::shared_
   // Render map
   map->render(sdl_renderer, block);
 
-  // Render snake's body
+  // Render pacman's body
   pacman.render(sdl_renderer, block);
 
   // Render enemys' body

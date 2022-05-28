@@ -6,12 +6,16 @@
 #include <memory>
 
 class Pacman : public MovableObject {
- public:
+public:
     Pacman();
     Pacman(std::shared_ptr<Map> map,
         std::size_t grid_width, std::size_t grid_height, std::shared_ptr<std::mt19937> engine);
     void render(SDL_Renderer *sdl_renderer, SDL_Rect block) override;
     void Update() override;
+    int getPoint() { return point; }
+private:
+    void handleCoin();
+    int point;
 };
 
 #endif
