@@ -1,9 +1,18 @@
 #include "movableObject.h"
 
+MovableObject::MovableObject()
+    : grid_width{std::size_t(0)},
+      grid_height{std::size_t(0)},
+      random_w(0, 0),
+      random_h(0, 0),
+      map() {
+
+      }
+
 MovableObject::MovableObject(
     std::shared_ptr<Map> map,
     std::size_t grid_width, std::size_t grid_height,
-    std::mt19937 engine
+    std::mt19937& engine
 )
     : grid_width{grid_width},
       grid_height{grid_height},
@@ -11,7 +20,8 @@ MovableObject::MovableObject(
       random_h(0, static_cast<int>(grid_height - 1)),
       engine(engine),
       map(map)
-{}
+{
+}
 
 void MovableObject::place() {
     int x, y;

@@ -39,7 +39,7 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-void Renderer::Render(Pacman pacman, std::shared_ptr<Map> map) {
+void Renderer::Render(Pacman pacman, std::vector<Enemy> &enemyList, std::shared_ptr<Map> map) {
   SDL_Rect block;
   block.w = screen_width / grid_width;
   block.h = screen_height / grid_height;
@@ -53,6 +53,11 @@ void Renderer::Render(Pacman pacman, std::shared_ptr<Map> map) {
 
   // Render snake's body
   pacman.render(sdl_renderer, block);
+
+  // Render enemys' body
+  for (auto &enemy : enemyList) {
+    enemy.render(sdl_renderer, block);
+  }
 
   // Update Screen
   SDL_RenderPresent(sdl_renderer);

@@ -7,6 +7,12 @@ void Controller::ChangeDirection(Pacman &pacman, Direction input) const {
     pacman.direction = input;
 }
 
+void Controller::HandleEnemyDirection(std::vector<Enemy> &enemyList) const {
+  for (auto& enemy : enemyList) {
+    enemy.decideDirection();
+  }
+}
+
 void Controller::HandleInput(bool &running, Pacman &pacman) const {
   SDL_Event e;
   while (SDL_PollEvent(&e)) {

@@ -11,10 +11,11 @@ enum class Direction { kUp, kDown, kStop, kLeft, kRight };
 
 class MovableObject : public GameObject {
  public:
+    MovableObject();
     MovableObject(
         std::shared_ptr<Map> map,
         std::size_t grid_width, std::size_t grid_height,
-        std::mt19937 engine
+        std::mt19937& engine
     );
 
     // place the object at the begining
@@ -31,7 +32,7 @@ class MovableObject : public GameObject {
     bool alive{true};
     std::size_t grid_width;
     std::size_t grid_height;
- private:
+
     std::shared_ptr<Map> map; // must hold  map to check the place of walls
     std::mt19937 engine;
     std::uniform_int_distribution<int> random_w;

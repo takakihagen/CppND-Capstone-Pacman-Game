@@ -2,7 +2,7 @@
 #include <iostream>
 #include "SDL.h"
 
-Game::Game(std::size_t grid_width, std::size_t grid_height)
+Game::Game(std::size_t enemy_num, std::size_t grid_width, std::size_t grid_height)
     : map(std::make_shared<Map>()),
       // pacman(map, grid_width, grid_height), // Q(1)
       engine(dev()),
@@ -12,6 +12,16 @@ Game::Game(std::size_t grid_width, std::size_t grid_height)
   // Even if the map should be declaired first, itwas empty
   pacman = Pacman(map, grid_width, grid_height, engine);
   pacman.place();
+
+  generateEnemies(enemy_num, grid_width, grid_height);
+}
+
+void Game::generateEnemies(std::size_t enemyNum, std::size_t grid_width, std::size_t grid_height) {
+  for (int i = 0; i < enemyNum; i++) {
+    auto enemy = Enemy(map, grid_width, grid_height, engine);
+    enemy.place();
+    enemyList.emplace_back(enemy);
+  }
 }
 
 void Game::Run(Controller const &controller, Renderer &renderer,
@@ -28,8 +38,9 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, pacman);
+    controller.HandleEnemyDirection(enemyList);
     Update();
-    renderer.Render(pacman, map);
+    renderer.Render(pacman, enemyList, map);
 
     frame_end = SDL_GetTicks();
 
@@ -57,6 +68,9 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 void Game::Update() {
   // if (!pacman.alive) return;
   pacman.Update();
+  for (auto& enemy : enemyList) {
+    enemy.Update();
+  }
 }
 
 int Game::GetScore() const { return score; }

@@ -2,10 +2,10 @@
 #include "gameObject.h"
 #include <cmath>
 
-Pacman::Pacman() : MovableObject(nullptr, 0, 0, std::mt19937()){}
+Pacman::Pacman() : MovableObject(){}
 Pacman::Pacman(
     std::shared_ptr<Map> map,
-    std::size_t grid_width, std::size_t grid_height, std::mt19937 engine
+    std::size_t grid_width, std::size_t grid_height, std::mt19937& engine
 ) :   MovableObject(std::move(map), grid_width, grid_height, engine) {
   direction = Direction::kStop;
 }
