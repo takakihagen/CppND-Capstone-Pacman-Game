@@ -4,7 +4,7 @@
 Enemy::Enemy() : MovableObject(){}
 Enemy::Enemy(
     std::shared_ptr<Map> map,
-    std::size_t grid_width, std::size_t grid_height, std::mt19937& engine
+    std::size_t grid_width, std::size_t grid_height, std::shared_ptr<std::mt19937> engine
 ) : MovableObject(std::move(map), grid_width, grid_height, engine),
     target_x{1000},
     target_y{1000} {
@@ -60,7 +60,7 @@ void Enemy::decideDirection() {
 
     Direction newDirection;
     while(true) { 
-      int d_i = random_d(engine);
+      int d_i = random_d(*engine);
       switch (d_i)
       {
       case 0:

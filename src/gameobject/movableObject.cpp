@@ -12,7 +12,7 @@ MovableObject::MovableObject()
 MovableObject::MovableObject(
     std::shared_ptr<Map> map,
     std::size_t grid_width, std::size_t grid_height,
-    std::mt19937& engine
+    std::shared_ptr<std::mt19937> engine
 )
     : grid_width{grid_width},
       grid_height{grid_height},
@@ -26,8 +26,8 @@ MovableObject::MovableObject(
 void MovableObject::place() {
     int x, y;
     while (true) {
-        x = random_w(engine);
-        y = random_h(engine);
+        x = random_w(*engine);
+        y = random_h(*engine);
         if (map->fullMap[y][x] != 1) {
             x_pos = x;
             y_pos = y;

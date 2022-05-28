@@ -5,7 +5,7 @@
 Game::Game(std::size_t enemy_num, std::size_t grid_width, std::size_t grid_height)
     : map(std::make_shared<Map>()),
       // pacman(map, grid_width, grid_height), // Q(1)
-      engine(dev()),
+      engine(std::make_shared<std::mt19937>(dev())),
       random_w(0, static_cast<int>(grid_width - 1)),
       random_h(0, static_cast<int>(grid_height - 1)) {
   // Q(1) Why isn't it possible to assign it above?
