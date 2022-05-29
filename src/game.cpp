@@ -39,7 +39,8 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, pacman);
     controller.HandleEnemyDirection(enemyList);
-    Update();
+    if (pacman.alive)
+      Update();
     renderer.Render(pacman, enemyList, map);
 
     frame_end = SDL_GetTicks();
@@ -65,13 +66,24 @@ void Game::Run(Controller const &controller, Renderer &renderer,
   }
 }
 
+void Game::checkGameOver() {
+  int pacmanGridX = static_cast<int>(pacman.x_pos);
+  int pacmanGridY = static_cast<int>(pacman.y_pos);
+  for (auto& enemy : enemyList) {
+    int enemyGridX = static_cast<int>(enemy.x_pos);
+    int enemyGridY = static_cast<int>(enemy.y_pos);
+    if (pacmanGridX == enemyGridX && pacmanGridY == enemyGridY) {
+      pacman.alive = false;
+      break;
+    }
+  }
+}
+
 void Game::Update() {
   // if (!pacman.alive) return;
   pacman.Update();
   for (auto& enemy : enemyList) {
     enemy.Update();
   }
+  checkGameOver();
 }
-
-int Game::GetScore() const { return score; }
-int Game::GetSize() const { return 0; }
