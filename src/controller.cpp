@@ -1,6 +1,8 @@
 #include "controller.h"
 #include <iostream>
+#include <memory>
 #include "SDL.h"
+#include "gameobject/map.h"
 
 void Controller::ChangeDirection(Pacman &pacman, Direction input) const {
   if (!pacman.checkWalls(input))
@@ -34,6 +36,21 @@ void Controller::HandleInput(bool &running, Pacman &pacman) const {
 
         case SDLK_RIGHT:
           ChangeDirection(pacman,  Direction::kRight);
+          break;
+      }
+    }
+  }
+}
+
+void Controller::HandleRestartInput(std::function<void()> restart, bool &running) const {
+  SDL_Event e;
+  while (SDL_PollEvent(&e)) {
+    if (e.type == SDL_QUIT) {
+      running = false;
+    } if (e.type == SDL_KEYDOWN) {
+      switch (e.key.keysym.sym) {
+        case SDLK_SPACE:
+          restart();
           break;
       }
     }

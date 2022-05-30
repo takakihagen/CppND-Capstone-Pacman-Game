@@ -14,7 +14,7 @@ class Renderer {
   ~Renderer();
 
   void Render(Pacman pacman, std::vector<Enemy> &emeyList, std::shared_ptr<Map> map);
-  void UpdateWindowTitle(int score, int fps);
+  void UpdateWindowTitle(int score, int fps, bool pacmanIsAlive);
 
  private:
   SDL_Window *sdl_window;

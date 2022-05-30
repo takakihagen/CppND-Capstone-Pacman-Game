@@ -30,11 +30,16 @@ class Game {
   std::uniform_int_distribution<int> random_w;
   std::uniform_int_distribution<int> random_h;
 
+  std::size_t enemy_num;
+  std::size_t grid_width;
+  std::size_t grid_height;
+
   int score{0};
 
   void PlaceFood();
   void Update();
   void checkGameOver();
+  void prepareGame();
 };
 
 #endif

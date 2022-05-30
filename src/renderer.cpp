@@ -64,7 +64,9 @@ void Renderer::Render(Pacman pacman, std::vector<Enemy> &enemyList, std::shared_
   SDL_RenderPresent(sdl_renderer);
 }
 
-void Renderer::UpdateWindowTitle(int score, int fps) {
+void Renderer::UpdateWindowTitle(int score, int fps, bool pacmanIsAlive) {
   std::string title{"Snake Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
+  if (!pacmanIsAlive)
+    title += ", Enter the Space key to restart!";
   SDL_SetWindowTitle(sdl_window, title.c_str());
 }

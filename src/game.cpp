@@ -7,8 +7,15 @@ Game::Game(std::size_t enemy_num, std::size_t grid_width, std::size_t grid_heigh
       // pacman(map, grid_width, grid_height), // Q(1)
       engine(std::make_shared<std::mt19937>(dev())),
       random_w(0, static_cast<int>(grid_width - 1)),
-      random_h(0, static_cast<int>(grid_height - 1)) {
-  // Q(1) Why isn't it possible to assign it above?
+      random_h(0, static_cast<int>(grid_height - 1)),
+      enemy_num(enemy_num),
+      grid_width(grid_width),
+      grid_height(grid_height) {
+  prepareGame();
+}
+
+void Game::prepareGame() {
+    // Q(1) Why isn't it possible to assign it above?
   // Even if the map should be declaired first, itwas empty
   pacman = Pacman(map, grid_width, grid_height, engine);
   pacman.place();
@@ -17,6 +24,7 @@ Game::Game(std::size_t enemy_num, std::size_t grid_width, std::size_t grid_heigh
 }
 
 void Game::generateEnemies(std::size_t enemyNum, std::size_t grid_width, std::size_t grid_height) {
+  enemyList = {};
   for (int i = 0; i < enemyNum; i++) {
     auto enemy = Enemy(map, grid_width, grid_height, engine);
     enemy.place();
@@ -36,11 +44,17 @@ void Game::Run(Controller const &controller, Renderer &renderer,
   while (running) {
     frame_start = SDL_GetTicks();
 
-    // Input, Update, Render - the main game loop.
-    controller.HandleInput(running, pacman);
-    controller.HandleEnemyDirection(enemyList);
-    if (pacman.alive)
+    if (pacman.alive) {
+      // Input, Update, Render - the main game loop.
+      controller.HandleInput(running, pacman);
+      controller.HandleEnemyDirection(enemyList);
       Update();
+    } else {
+      controller.HandleRestartInput([this]() -> void {prepareGame();}, running);
+        map->generateFullMap();
+
+    }
+
     renderer.Render(pacman, enemyList, map);
 
     frame_end = SDL_GetTicks();
@@ -52,7 +66,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
     // After every second, update the window title.
     if (frame_end - title_timestamp >= 1000) {
-      renderer.UpdateWindowTitle(pacman.getPoint(), frame_count);
+      renderer.UpdateWindowTitle(pacman.getPoint(), frame_count, pacman.alive);
       frame_count = 0;
       title_timestamp = frame_end;
     }
