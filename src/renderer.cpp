@@ -17,7 +17,7 @@ Renderer::Renderer(const std::size_t screen_width,
   }
 
   // Create Window
-  sdl_window = SDL_CreateWindow("Snake Game", SDL_WINDOWPOS_CENTERED,
+  sdl_window = SDL_CreateWindow("Pacman Game", SDL_WINDOWPOS_CENTERED,
                                 SDL_WINDOWPOS_CENTERED, screen_width,
                                 screen_height, SDL_WINDOW_SHOWN);
 
@@ -65,7 +65,7 @@ void Renderer::Render(Pacman pacman, std::vector<Enemy> &enemyList, std::shared_
 }
 
 void Renderer::UpdateWindowTitle(int score, int fps, bool pacmanIsAlive) {
-  std::string title{"Snake Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
+  std::string title{"Pacman Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
   if (!pacmanIsAlive)
     title += ", Enter the Space key to restart!";
   SDL_SetWindowTitle(sdl_window, title.c_str());
